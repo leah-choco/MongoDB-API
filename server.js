@@ -63,6 +63,7 @@ app.put('/api/users/:id', (req,res) => {
   );
 });
 
+//BONUS: remove a user's associated thoughts when deleted
 //Delete user by id
 app.delete('/api/users/:id', (req,res) => {
   User.findOneAndDelete({ id}, (err, result) => {
@@ -75,6 +76,36 @@ app.delete('/api/users/:id', (req,res) => {
     }
   });
 });
+
+//Add a new friend to a user's friend list
+app.post('/api/users/:userId/friends/:friendId', (req,res) => {
+  const newFriend = new User{}
+  newFriend.save();
+  if(newFriend) {
+    res.status(200).json(newFriend);
+
+  } else {
+    console.log("something went wrong");
+    res.status(500).json({ message: "somethinh went wrong"});
+  }
+});
+
+//Delete a friend from a user's  friend list
+app.delete('/api/users/:userId/friends/:friendId', (req,res) => {
+  User.findOneAndDelete({id}, (err, result) => {
+    if(result) {
+      res.status(200).json(result);
+      console.log(`Deleted: ${result}`);
+    }else {
+      console.log('something went wrong');
+      res.status(500).json({ message: 'something went wrong'});
+    }
+  });
+});
+
+
+
+
 
 db.once("open", () => {
   app.listen(PORT, () => {
