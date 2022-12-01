@@ -141,8 +141,35 @@ app.post('/api/thoughts/', (req, res) => {
 });
 
 //Update a thought by its id
+app.put('/api/thoughts/:id', (req,res) => {
+  Thought.findOneAndUpdate(
+    {id:},
+    {id: req.params.thought},
+    {new: true},
+    (err, result) => {
+      if(result) {
+        res.status(200).json(result);
+        console.log(`Updated: ${result}`);
+      } else {
+        console.log('something went wrong');
+        res.status(500).json({ message: 'something went wrong'});
+      }
+    }
+  );
+});
 
 //Delete a thought by its id
+app.delete('/api/thoughts/:id', (req, res) => {
+  Thought.findOneAndDelete({id}, (err, result) => {
+    if(result) {
+      res.status(200).json(result);
+      console.log(`Deleted: ${result}`);
+    } else {
+      console.log('somethinh went wrong');
+      res.status(500).json({ message: 'something went wrong'});
+    }
+  });
+});
 
 
 
