@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require("./config/connection");
 // Require model
-const { Book, User, Thought } = require("./models");
+const { Book, User, Thought, Reaction } = require("./models");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -171,7 +171,30 @@ app.delete('/api/thoughts/:id', (req, res) => {
   });
 });
 
+//Create a reaction stored in a single thought's reactions array field
+app.post('/api/thoughts/:thoughtId/reactions', (req,res) => {
+  const newReaction = new Reaction({});
+  newReaction.save();
+    if(newReaction) {
+    res.status(200).json(newReaction);
+  } else {
+    console.log('sonething went wrong');
+    res.status(500).json({ message: 'something went wrong'});
+  }
+}); 
 
+//Delete to pull and remove a reaction by the reaction's reactionId value
+app.delete('/api/thoughts/:thoughtId/reactions', (req,res) => {
+  Reaction.findOneAndDelete({}, (err, result) =>{
+    if(result) {
+      res.status(200).json(result);
+      console.log(`Deleted: ${result}`);
+    } else {
+      console.log('something went wrong');
+      res.status(500).json({ message: "somethinh went wrong"});
+    }
+  });
+});
 
 
 
