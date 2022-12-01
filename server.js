@@ -1,7 +1,7 @@
 const express = require("express");
 const db = require("./config/connection");
 // Require model
-const { Book, User } = require("./models");
+const { Book, User, Thought } = require("./models");
 
 const PORT = process.env.PORT || 3001;
 const app = express();
@@ -102,6 +102,47 @@ app.delete('/api/users/:userId/friends/:friendId', (req,res) => {
     }
   });
 });
+
+//Get all thoughts
+app.get('/api/thoughts', (req,res) => {
+  Thoughts.find({}, (err, result) => {
+    if(result) {
+      res.status(200).json(result);
+    } else {
+      console.log('something went wrong');
+      res.status(500).json({ message: 'something went wrong'});
+    }
+  });
+});
+
+//Get a single thought by its id
+app.get('/api/thoughts/:id', (req, res) => {
+  Thought.fineOne({id}, (err, result) => {
+    if(result) {
+      res.status(200).json(result);
+    } else {
+      console.log('something went wrong');
+      res.status(500).json({ message: 'something went wrong'});
+    }
+  });
+});
+
+//Create a new thought(don't forget to push the created thought's id to the associated user's thoughts array field )
+app.post('/api/thoughts/', (req, res) => {
+  const newThought = new Thought({ });
+  newThought.save();
+  if (newThought) {
+    res.status(200).json(newThought);
+  } else {
+    console.log('something went wrong');
+    res.status(500).json({ message: 'something went wrong'});
+  }
+
+});
+
+//Update a thought by its id
+
+//Delete a thought by its id
 
 
 
