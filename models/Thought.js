@@ -1,4 +1,7 @@
-const mongoose = require("mongoose");
+const { Schema, model } = require("mongoose");
+
+//Right place to have subdoc schema in the Thought model???
+const reactionSchema = require("./Reaction");
 
 const thoughtSchema = new mongoose.Schema({
   thoughtText: { type: String, required: true }, //must be between 1 and 280 characters}
@@ -9,9 +12,11 @@ const thoughtSchema = new mongoose.Schema({
   reactions: {}, //array of nested documents created with the 'reaction" schema}
 });
 
-//Using mongoose.model() to compile a model based on the schema 'thoughtSchema'
-const Thought = mongoose.model("Thought", thoughtSchema);
-
-const handleError = (err) => console.error(err);
+thoughtSchema
+  .virtual("reactionCount")
+  //retrieves the length of the thought's reaction array field on query
+  .get(function () {
+    return;
+  });
 
 module.export = Thought;

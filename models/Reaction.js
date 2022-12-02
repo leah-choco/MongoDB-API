@@ -6,3 +6,7 @@ const reactionSchema = new mongoose.Schema({
   username: { type: String, required: true },
   createdAt: { type: Date }, //Set default value to the current timestamp, use a getter method to format the timestamp on query
 });
+
+const Reaction = model("reaction", reactionSchema);
+
+module.exports = Reaction;
