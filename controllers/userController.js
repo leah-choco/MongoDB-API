@@ -1,5 +1,6 @@
 const { User, Thought } = require("../models");
 
+//Still need to add friends routes
 module.exports = {
   // Get all users
   getUsers(req, res) {
