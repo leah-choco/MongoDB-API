@@ -53,4 +53,24 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
+  //Create a friend
+  createFriend(req, res) {
+    User.create(req.body)
+      .then((friend) => res.json(friend))
+      .catch((err) => {
+        console.log(err);
+        return res.status(500).json(err);
+      });
+  },
+  //Delete a friend
+  deleteFriend(req, res) {
+    User.findOneAndDelete({ _id: req.params.friendId })
+      .then((friend) =>
+        !friend
+          ? res.status(404).json({ message: "no friend found with that Id" })
+          : User.deleteMany({ _id: { $in: user.friends } })
+      )
+      .then(() => res.json({ message: "user and friends deleted" }))
+      .catch((err) => res.status(500).json(err));
+  },
 };
