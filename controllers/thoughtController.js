@@ -8,9 +8,9 @@ module.exports = {
       .then(async (thoughts) => {
         const thoughtObj = {
           thoughts,
-          headCount: await headCount(),
+          //headCount: await headCount(),
         };
-        return res.json(studentObj);
+        return res.json(thoughtObj);
       })
       .catch((err) => {
         console.log(err);
@@ -26,7 +26,7 @@ module.exports = {
           ? res.status(404).json({ message: "No thought with that ID" })
           : res.json({
               thought,
-              grade: await grade(req.params.studentId),
+              //grade: await grade(req.params.studentId),
             })
       )
       .catch((err) => {
