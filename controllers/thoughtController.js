@@ -6,11 +6,7 @@ module.exports = {
   getThoughts(req, res) {
     Thought.find()
       .then(async (thoughts) => {
-        const thoughtObj = {
-          thoughts,
-          //headCount: await headCount(),
-        };
-        return res.json(thoughtObj);
+        return res.json(thoughts);
       })
       .catch((err) => {
         console.log(err);
@@ -24,10 +20,7 @@ module.exports = {
       .then(async (thought) =>
         !thought
           ? res.status(404).json({ message: "No thought with that ID" })
-          : res.json({
-              thought,
-              //grade: await grade(req.params.studentId),
-            })
+          : res.json(thought)
       )
       .catch((err) => {
         console.log(err);
@@ -59,7 +52,7 @@ module.exports = {
       .then((thought) =>
         !thought
           ? res.status(404).json({ message: "No such thought exists" })
-          : Thought.findOneAndUpdate(
+          : User.findOneAndUpdate(
               { thoughts: req.params.thoughtId },
               { $pull: { thoughts: req.params.thoughtId } },
               { new: true }

@@ -12,6 +12,8 @@ module.exports = {
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
+      .populate("friends")
+      .populate("thoughts")
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
@@ -34,7 +36,7 @@ module.exports = {
       .then((user) =>
         !user
           ? res.status(404).json({ message: "No user with that ID" })
-          : Thought.deleteMany({ _id: { $in: user.thoughts } })
+          : Thought.deleteMany({ username: user.username })
       )
       .then(() => res.json({ message: "user and thoughts deleted!" }))
       .catch((err) => res.status(500).json(err));
@@ -55,8 +57,12 @@ module.exports = {
   },
   //Create a friend
   createFriend(req, res) {
-    User.create(req.body)
-      .then((friend) => res.json(friend))
+    User.findOneandUpdate(
+      { _id: req.params.userId },
+      { $addToSet: { friends: req.params.friendId } },
+      { new: true }
+    )
+      .then((user) => res.json(user))
       .catch((err) => {
         console.log(err);
         return res.status(500).json(err);
@@ -64,13 +70,13 @@ module.exports = {
   },
   //Delete a friend
   deleteFriend(req, res) {
-    User.findOneAndDelete({ _id: req.params.friendId })
-      .then((friend) =>
-        !friend
-          ? res.status(404).json({ message: "no friend found with that Id" })
-          : User.deleteMany({ _id: { $in: user.friends } })
-      )
-      .then(() => res.json({ message: "user and friends deleted" }))
+    User.findOneAndUpdate(
+      { _id: req.params.userId },
+      { $pull: { friends: req.params.friendId } },
+      { new: true }
+    )
+
+      .then(() => res.json({ message: " friend deleted" }))
       .catch((err) => res.status(500).json(err));
   },
 };
