@@ -8,7 +8,7 @@ Demonstration Video:
 
 [Installation](#Installation)
 
-[Learned](#What I Learned)
+[Learned](#Learned)
 
 ## Description:
 
@@ -18,6 +18,6 @@ This app is not deployed and was solely designed to practice working with MongoD
 
 For this project, I only used "express" and "mongoose".
 
-## What I Learned:
+## Learned:
 
 For the past 3 months, I have been focused on learning SQL. It was time to move on to a NoSQL environment. MongoDB was very interesting to learn about and use to write this project. One of the validators in mongoose involves using a regex to look into the structure of the email. Then another thing that stood out was being able to nest documents rather than having to specifically outline primary and foreign keys and relationships like in SQL. It just seems like a more dynamic way to store and manipulate data.
