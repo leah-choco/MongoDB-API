@@ -4,14 +4,11 @@ Demonstration Video:
 
 ## Table of Contents:
 
-[Description]
-(#Description)
+[Description](#Description)
 
-[Installation]
-(#Installation)
+[Installation](#Installation)
 
-[Learned]
-(#What I Learned)
+[Learned](#What I Learned)
 
 ## Description:
 
