@@ -12,8 +12,8 @@ const thoughtSchema = new Schema(
     },
     //The user that created this thought
     username: { type: String, required: true },
-    //These are like replies
-    reactions: [reactionSchema], //array of nested documents created with the 'reaction" schema}
+    //array of nested documents created with the 'reaction" schema
+    reactions: [reactionSchema],
   },
   {
     toJSON: {

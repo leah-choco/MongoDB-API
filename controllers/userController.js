@@ -1,6 +1,5 @@
 const { User, Thought } = require("../models");
 
-//Still need to add friends routes
 module.exports = {
   // Get all users
   getUsers(req, res) {
@@ -8,7 +7,7 @@ module.exports = {
       .then((users) => res.json(users))
       .catch((err) => res.status(500).json(err));
   },
-  // Get a user
+  // Get a user and show their reactions and thoughts
   getSingleUser(req, res) {
     User.findOne({ _id: req.params.userId })
       .select("-__v")
@@ -55,7 +54,7 @@ module.exports = {
       )
       .catch((err) => res.status(500).json(err));
   },
-  //Create a friend
+  //Create a friend which updates a user
   createFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },
@@ -68,7 +67,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  //Delete a friend
+  //Delete a friend which updates a user
   deleteFriend(req, res) {
     User.findOneAndUpdate(
       { _id: req.params.userId },

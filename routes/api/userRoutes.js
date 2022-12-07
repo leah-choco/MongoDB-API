@@ -1,5 +1,6 @@
 const router = require("express").Router();
 
+//Requiring the user controllers
 const {
   getUsers,
   getSingleUser,
@@ -9,6 +10,8 @@ const {
   createFriend,
   deleteFriend,
 } = require("../../controllers/userController");
+
+// All the comments throughout are the specific paths
 // '/api/users'
 router.route("/").get(getUsers).post(createUser);
 

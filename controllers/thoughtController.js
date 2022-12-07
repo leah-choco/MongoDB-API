@@ -13,7 +13,7 @@ module.exports = {
         return res.status(500).json(err);
       });
   },
-  // Get a single thought (grades should be reactions?)
+  // Get a single thought
   getSingleThought(req, res) {
     Thought.findOne({ _id: req.params.thoughtId })
       .select("-__v")
@@ -33,6 +33,7 @@ module.exports = {
       .then((thought) => res.json(thought))
       .catch((err) => res.status(500).json(err));
   },
+  //Update a current thought
   updateThought(req, res) {
     Thought.findOneAndUpdate(
       { _id: req.params.thoughtId },

@@ -19,18 +19,20 @@ const userSchema = new Schema(
         "Please provide a valid email address.",
       ],
     },
+    //array of id values referencing thought model
     thoughts: [
       {
         type: Schema.Types.ObjectId,
         ref: "thought",
       },
-    ], //array of id values referencing thought model
+    ],
+    //array of id values referencing user(self-reference)
     friends: [
       {
         type: Schema.Types.ObjectId,
         ref: "user",
       },
-    ], //array of id values referencing user(self-reference)
+    ],
   },
   {
     toJSON: {
